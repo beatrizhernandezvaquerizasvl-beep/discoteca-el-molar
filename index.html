@@ -4,11 +4,441 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KARAOKE TANIT | Donde la noche nunca termina</title>
-  <meta name="description" content="Web promocional de KARAOKE TANIT en El Molar. Zona de baile, barra, baños, exterior y reservas por WhatsApp." />
+  <meta name="description" content="Web promocional de KARAOKE TANIT en El Molar. Zona de baile, barra, baños, exterior, precios y reservas por WhatsApp." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root{
+      --bg:#090909;
+      --bg-soft:#111111;
+      --card:#151515;
+      --text:#f5f5f5;
+      --muted:#c8c8c8;
+      --pink:#ff2ea6;
+      --blue:#27d3ff;
+      --violet:#8a5cff;
+      --border:rgba(255,255,255,0.08);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:22px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Montserrat',sans-serif;
+      background: radial-gradient(circle at top left, rgba(255,46,166,.12), transparent 30%),
+                  radial-gradient(circle at top right, rgba(39,211,255,.10), transparent 30%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(92%, var(--max));margin:0 auto}
+
+    .bg-glow{
+      position:fixed;
+      width:360px;
+      height:360px;
+      border-radius:50%;
+      filter:blur(120px);
+      opacity:.15;
+      z-index:-1;
+      pointer-events:none;
+    }
+    .bg-glow-1{background:var(--pink);top:-80px;left:-80px}
+    .bg-glow-2{background:var(--blue);bottom:-120px;right:-100px}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(18px);
+      background:rgba(9,9,9,.72);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 4%;
+    }
+
+    .logo{
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+    }
+    .logo-main{
+      font-weight:800;
+      font-size:1.2rem;
+      color:var(--pink);
+      letter-spacing:.08em;
+    }
+    .logo-sub{
+      font-weight:700;
+      font-size:.9rem;
+      color:var(--blue);
+      letter-spacing:.18em;
+      margin-top:4px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      color:#fff;
+      font-size:.95rem;
+      opacity:.92;
+      transition:.2s ease;
+    }
+
+    .nav a:hover{color:var(--blue)}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--pink),var(--violet));
+      color:#fff;
+      font-weight:700;
+      box-shadow:0 8px 24px rgba(255,46,166,.25);
+      transition:.25s ease;
+      border:none;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-small{padding:10px 16px;font-size:.92rem}
+    .btn-secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow:none;
+    }
+
+    .hero{
+      position:relative;
+      min-height:92vh;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+    }
+
+    .hero-image{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      filter:brightness(.34);
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to bottom, rgba(9,9,9,.15), rgba(9,9,9,.82)),
+        radial-gradient(circle at center, rgba(255,46,166,.10), transparent 35%);
+      z-index:1;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      padding:80px 0;
+      max-width:760px;
+    }
+
+    .eyebrow{
+      color:var(--blue);
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-size:.82rem;
+      margin-bottom:14px;
+    }
+
+    .hero h1{
+      font-size:clamp(2.5rem,6vw,5.2rem);
+      line-height:1.02;
+      margin-bottom:22px;
+      font-weight:800;
+    }
+
+    .hero h1 span{
+      color:var(--pink);
+      text-shadow:0 0 18px rgba(255,46,166,.35);
+    }
+
+    .hero-text{
+      font-size:1.08rem;
+      color:#ebebeb;
+      max-width:680px;
+      margin-bottom:30px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    section{padding:88px 0}
+
+    .section-heading{
+      margin-bottom:34px;
+    }
+
+    .section-heading h2{
+      font-size:clamp(1.8rem,4vw,3rem);
+      margin-bottom:10px;
+    }
+
+    .section-heading p{
+      color:var(--muted);
+      max-width:760px;
+    }
+
+    .intro-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+
+    .feature-card h3{
+      color:var(--pink);
+      margin-bottom:14px;
+      font-size:1.25rem;
+    }
+
+    .feature-card p{
+      color:#f0f0f0;
+      margin-bottom:10px;
+    }
+
+    .gallery-section{
+      padding-top:30px;
+    }
+
+    .gallery-block{
+      margin-bottom:54px;
+    }
+
+    .block-header{
+      margin-bottom:18px;
+    }
+
+    .block-header h3{
+      font-size:1.4rem;
+      margin-bottom:6px;
+      color:var(--blue);
+    }
+
+    .block-header p{
+      color:var(--muted);
+    }
+
+    .photo-grid{
+      display:grid;
+      gap:16px;
+    }
+
+    .photo-grid-dance{
+      grid-template-columns:repeat(3,1fr);
+      grid-auto-rows:220px;
+    }
+
+    .photo-grid-two{
+      grid-template-columns:repeat(2,1fr);
+      grid-auto-rows:280px;
+    }
+
+    .photo-card{
+      overflow:hidden;
+      border-radius:20px;
+      border:1px solid var(--border);
+      background:#0f0f0f;
+      box-shadow:var(--shadow);
+    }
+
+    .photo-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .35s ease;
+    }
+
+    .photo-card:hover img{
+      transform:scale(1.04);
+    }
+
+    .photo-card-large{
+      grid-column:span 2;
+      grid-row:span 2;
+    }
+
+    .photo-card-wide{
+      grid-column:span 2;
+    }
+
+    .contact-section{
+      background:linear-gradient(180deg, rgba(255,255,255,.015), rgba(255,255,255,.03));
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:30px;
+      align-items:start;
+    }
+
+    .contact-text{
+      color:var(--muted);
+      max-width:620px;
+    }
+
+    .contact-card{
+      padding:30px;
+    }
+
+    .contact-list{
+      list-style:none;
+      display:grid;
+      gap:22px;
+    }
+
+    .contact-list li span{
+      display:block;
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--blue);
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    .contact-list a,
+    .contact-list p{
+      color:#fff;
+      word-break:break-word;
+    }
+
+    .social-links{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .social-links a{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.03);
+    }
+
+    .site-footer{
+      padding:28px 20px 40px;
+      text-align:center;
+      color:#cfcfcf;
+      font-size:.95rem;
+    }
+
+    @media (max-width: 1024px){
+      .intro-grid{
+        grid-template-columns:1fr;
+      }
+
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+
+      .photo-grid-dance{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media (max-width: 768px){
+      .site-header{
+        gap:14px;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .hero{
+        min-height:85vh;
+      }
+
+      .hero-content{
+        padding:110px 0 60px;
+      }
+
+      .hero-text{
+        font-size:1rem;
+      }
+
+      .photo-grid-dance,
+      .photo-grid-two{
+        grid-template-columns:1fr;
+        grid-auto-rows:auto;
+      }
+
+      .photo-card-large,
+      .photo-card-wide{
+        grid-column:span 1;
+        grid-row:span 1;
+      }
+
+      .photo-card img{
+        height:auto;
+        aspect-ratio: 4 / 3;
+      }
+
+      section{
+        padding:70px 0;
+      }
+    }
+
+    @media (max-width: 520px){
+      .nav{
+        gap:12px;
+      }
+
+      .nav a{
+        font-size:.88rem;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="bg-glow bg-glow-1"></div>
@@ -21,6 +451,7 @@
     </a>
 
     <nav class="nav">
+      <a href="#precios">Precios</a>
       <a href="#galeria">Galería</a>
       <a href="#contacto">Contacto</a>
       <a class="btn btn-small" href="https://wa.me/34649874933" target="_blank" rel="noopener noreferrer">Reservar</a>
@@ -36,33 +467,40 @@
         <p class="eyebrow">El Molar · Madrid</p>
         <h1>Donde la noche <span>nunca termina</span></h1>
         <p class="hero-text">
-          Música, karaoke, luces neón y un ambiente pensado para celebrar cada noche.
-          Descubre KARAOKE TANIT y reserva tu próxima salida.
+          Todo tipo de música, karaoke y un ambiente pensado para celebrar cada noche.
+          Descubre KARAOKE TANIT y consulta disponibilidad para reservas y eventos privados.
         </p>
         <div class="hero-actions">
-          <a href="#galeria" class="btn">Ver Próximos Eventos</a>
+          <a href="#precios" class="btn">Ver precios</a>
           <a href="#contacto" class="btn btn-secondary">Cómo llegar</a>
         </div>
       </div>
     </section>
 
-    <section class="intro container">
+    <section class="intro container" id="precios">
       <div class="section-heading">
-        <p class="eyebrow">Concepto visual</p>
-        <h2>Una discoteca con identidad neón</h2>
+        <p class="eyebrow">Precios</p>
+        <h2>Listado de precios y alquiler del local</h2>
       </div>
+
       <div class="intro-grid">
         <article class="card feature-card">
-          <h3>Estética</h3>
-          <p>Negro absoluto, rosa neón, morado eléctrico y destellos de verde para una imagen intensa y moderna.</p>
+          <h3>Bebidas</h3>
+          <p>Copas: 10 €</p>
+          <p>Chupitos: 4 €</p>
+          <p>Refrescos: 4 €</p>
+          <p>Cerveza: 5 €</p>
         </article>
+
         <article class="card feature-card">
-          <h3>Experiencia</h3>
-          <p>Espacios diferenciados para bailar, tomar algo, entrar al baño con comodidad y disfrutar del ambiente completo.</p>
+          <h3>Acceso</h3>
+          <p>Entrada gratis</p>
+          <p>Botellas: normalmente entre 80 € y 120 €</p>
         </article>
+
         <article class="card feature-card">
-          <h3>Reservas</h3>
-          <p>Contacto directo por WhatsApp para consultas, eventos privados y celebraciones.</p>
+          <h3>Eventos privados</h3>
+          <p>Disponibilidad de alquilar el local completo para cumpleaños, fiestas privadas y diferentes eventos.</p>
         </article>
       </div>
     </section>
@@ -169,9 +607,9 @@
             <li>
               <span>Redes sociales</span>
               <div class="social-links">
-                <a href="#" aria-label="Instagram">Instagram</a>
-                <a href="#" aria-label="TikTok">TikTok</a>
-                <a href="#" aria-label="Facebook">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Facebook</a>
               </div>
             </li>
           </ul>
@@ -184,6 +622,8 @@
     <p>© <span id="year"></span> KARAOKE TANIT · Donde la noche nunca termina</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
